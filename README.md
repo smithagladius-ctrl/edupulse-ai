@@ -156,7 +156,7 @@ The system moves institutions from reactive monitoring to predictive behavioural
 
 ---
 
-## 🔮 Future Scope
+##  Future Scope
 
 - Real LMS data integration
 - Temporal modelling (LSTM)
@@ -167,9 +167,4 @@ The system moves institutions from reactive monitoring to predictive behavioural
 
 ---
 
-## 🛠️ Local Setup
 
-### 1️⃣ Clone Repository
-```bash
-git clone https://github.com/YOUR_USERNAME/edupulse-ai.git
-cd edupulse-ai
