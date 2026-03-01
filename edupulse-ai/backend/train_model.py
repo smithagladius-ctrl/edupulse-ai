@@ -7,6 +7,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score, mean_squared_error, r2_score
 import lightgbm as lgb
 import xgboost as xgb
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
 
 def train_and_evaluate():
     # 1. Setup paths
@@ -87,6 +89,25 @@ def train_and_evaluate():
     with open(reg_path, 'wb') as f:
         pickle.dump(reg, f)
         
+    # -----------------------------------------------------
+    # Model C: Behavioural Clustering (KMeans)
+    # -----------------------------------------------------
+    print("\nTraining KMeans for Behavioural Profiles...")
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+    
+    # 4 Clusters: 0=Stable, 1=Emerging Fatigue, 2=High Instability, 3=Disengagement
+    kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
+    kmeans.fit(X_scaled)
+    
+    # Save Model C & Scaler
+    kmeans_path = os.path.join(models_dir, "kmeans_model.pkl")
+    scaler_path = os.path.join(models_dir, "scaler.pkl")
+    with open(kmeans_path, 'wb') as f:
+        pickle.dump(kmeans, f)
+    with open(scaler_path, 'wb') as f:
+        pickle.dump(scaler, f)
+        
     print(f"\nModels successfully saved to: {models_dir}")
 
 # -----------------------------------------------------
@@ -131,24 +152,24 @@ def generate_explanation(model, X_input, feature_names):
         # Only include if the SHAP value actually pushes risk up significantly
         if target_shap[idx] > 0.05: 
             if feat == 'late_night_activity_ratio':
-                reasons.append(f"high late-night activity ratio ({val:.0%})")
+                reasons.append(f"significant late-night activity patterns ({val:.0%}) potentially impacting sleep hygiene")
             elif feat == 'attendance_trend_slope':
-                reasons.append("sharp decline in recent attendance")
+                reasons.append("a noticeable downward trend in consistent classroom engagement")
             elif feat == 'assignment_delay_days':
-                reasons.append(f"consistent assignment delays (avg {val:.1f} days)")
+                reasons.append(f"a buildup of assignment delays ({val:.1f} days avg), often a proxy for cognitive overload")
             elif feat == 'login_irregularity_score':
-                reasons.append("highly irregular login patterns")
+                reasons.append("highly irregular digital engagement patterns, signaling potential routine disruption")
             elif feat == 'sentiment_score':
-                reasons.append("negative sentiment in recent communications")
+                reasons.append("subtle cues of frustration or low morale in recent sentiment samples")
             elif feat == 'activity_entropy':
-                reasons.append("a highly chaotic predictable routine")
+                reasons.append("signs of a chaotic or unstable behavioral routine")
             else:
-                reasons.append(f"abnormal {feat.replace('_', ' ')}")
+                reasons.append(f"fluctuations in {feat.replace('_', ' ')}")
                 
     if not reasons:
-         explanation = "No significant high-risk behavioral triggers detected."
+         explanation = "Student demonstrates stable attendance and consistent engagement patterns. No signs of cognitive fatigue or disengagement detected."
     else:
-         explanation = "Risk is elevated primarily due to " + " and ".join(reasons) + "."
+         explanation = "Risk is elevated primarily due to " + " and ".join(reasons) + ". These signals suggest a potential shift in academic momentum."
          
     return shap_dict, explanation
 

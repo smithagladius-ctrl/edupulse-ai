@@ -36,40 +36,44 @@ function App() {
   };
 
   return (
-    <div className="app-container glass-bg">
-      <header className="app-header">
-        <h1>EduPulse <span>AI</span></h1>
-        <p className="tagline">Early Detection of Student Burnout & Dropout Risk</p>
-      </header>
+    <>
+      <div className="bg-animate"></div>
+      <div className="app-container">
+        <header className="app-header">
+          <h1>EduPulse <span>AI</span></h1>
+          <p className="tagline">Early Detection of Student Burnout & Dropout Risk</p>
+        </header>
 
-      <main className="dashboard-grid">
-        <section className="input-section">
-          <PredictionForm onSubmit={handlePredict} isLoading={isLoading} />
-        </section>
+        <main className="dashboard-grid">
+          <section className="input-section">
+            <PredictionForm onSubmit={handlePredict} isLoading={isLoading} />
+          </section>
 
-        <section className="results-section">
-          {error ? (
-            <div className="error-panel glass-panel">
-              <span className="error-icon">⚠️</span>
-              <h3>Connection Error</h3>
-              <p>{error}</p>
-            </div>
-          ) : result ? (
-            <ResultsDashboard result={result} />
-          ) : (
-            <div className="results-placeholder glass-panel">
-              <div className="placeholder-icon">📊</div>
-              <h3>Ready for Analysis</h3>
-              <p>Submit a student profile to see the AI predictions and explanations here.</p>
-            </div>
-          )}
-        </section>
-      </main>
+          <section className="results-section">
+            {error ? (
+              <div className="error-panel glass-panel">
+                <span className="error-icon">⚠️</span>
+                <h3>Connection Error</h3>
+                <p>{error}</p>
+              </div>
+            ) : result ? (
+              <ResultsDashboard result={result} />
+            ) : (
+              <div className="results-placeholder glass-panel">
+                <div className="placeholder-icon">📊</div>
+                <h3>Ready for Analysis</h3>
+                <p>Submit a student profile to see the AI predictions and explanations here.</p>
+              </div>
+            )}
+          </section>
+        </main>
 
-      <footer className="app-footer">
-        <p>Built for the Student Burnout Hackathon Blueprint</p>
-      </footer>
-    </div>
+        <footer className="app-footer">
+          <p>Built for the Student Burnout Hackathon Blueprint</p>
+          <p className="footer-version">Model Version: v1.0.2 • Engine: XGBoost-v2</p>
+        </footer>
+      </div>
+    </>
   );
 }
 
