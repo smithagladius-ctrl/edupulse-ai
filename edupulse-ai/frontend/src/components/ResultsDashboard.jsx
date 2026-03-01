@@ -39,8 +39,9 @@ function ResultsDashboard({ result }) {
 
     const fetchInstitutionalData = async () => {
         setLoadingInst(true);
+        const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
         try {
-            const res = await fetch('http://127.0.0.1:8000/institutional-metrics');
+            const res = await fetch(`${API_URL}/institutional-metrics`);
             if (res.ok) {
                 const data = await res.json();
                 setInstData(data);

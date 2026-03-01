@@ -11,9 +11,9 @@ function App() {
   const handlePredict = async (formData) => {
     setIsLoading(true);
     setError(null);
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
     try {
-      // Connect to the local FastAPI backend running on port 8000
-      const response = await fetch('http://localhost:8000/predict', {
+      const response = await fetch(`${API_URL}/predict`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ function App() {
       setResult(data);
     } catch (err) {
       console.error("Prediction failed:", err);
-      setError("Failed to connect to the backend API. Please ensure FastAPI is running on port 8000.");
+      setError("Failed to connect to the backend API. Please ensure the backend is running.");
     } finally {
       setIsLoading(false);
     }
