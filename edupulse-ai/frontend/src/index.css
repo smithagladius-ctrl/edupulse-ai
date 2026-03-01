@@ -1,0 +1,478 @@
+/* Base Colors and Theme Variables */
+:root {
+  --bg-dark: #0f172a; /* Slate 900 */
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+  --panel-bg: rgba(255, 255, 255, 0.05);
+  --panel-border: rgba(255, 255, 255, 0.1);
+  --panel-glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent-cyan: #22d3ee;
+  --accent-purple: #c084fc;
+  
+  /* Risk Colors */
+  --risk-low: #10b981; /* Emerald */
+  --risk-medium: #f59e0b; /* Amber */
+  --risk-high: #ef4444; /* Red */
+  
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.app-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.app-header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem;
+  letter-spacing: -1px;
+}
+
+.app-header h1 span {
+  background: -webkit-linear-gradient(45deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tagline {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Dashboard Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Glass Panels */
+.glass-panel {
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--panel-border);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--panel-glass-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+}
+
+/* Typography styles inside panels */
+.glass-panel h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  fontWeight: 600;
+}
+.glass-panel h3 {
+  margin-top: 0;
+  color: var(--accent-cyan);
+  font-size: 1.25rem;
+}
+
+/* Forms */
+.form-subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-header label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.value-display {
+  font-family: monospace;
+  background: rgba(0,0,0,0.3);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: var(--accent-cyan);
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+  height: 6px;
+  border-radius: 3px;
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  margin-top: -5px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+  transition: transform 0.1s ease;
+}
+
+input[type=range]:focus::-webkit-slider-thumb,
+input[type=range]:hover::-webkit-slider-thumb {
+  transform: scale(1.2);
+}
+
+/* Button */
+.submit-btn {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.submit-btn:hover:not(:disabled) {
+  box-shadow: 0 0 20px rgba(192, 132, 252, 0.5);
+  transform: translateY(-2px);
+}
+
+.submit-btn .arrow {
+  transition: transform 0.3s ease;
+}
+.submit-btn:hover .arrow {
+  transform: translateX(5px);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background: linear-gradient(135deg, #475569, #334155);
+}
+
+.submit-btn.loading {
+  animation: pulse 1.5s infinite;
+}
+
+/* Results Section */
+.results-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeInRight 0.6s ease-out;
+}
+
+.results-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  min-height: 300px;
+  color: var(--text-secondary);
+  border: 1px dashed var(--panel-border);
+}
+
+.placeholder-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.error-panel {
+  text-align: center;
+  border-color: rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.05);
+}
+.error-panel h3 { color: var(--risk-high); }
+
+/* Primary Result Container */
+.primary-result {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.risk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.risk-badge {
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Dynamic Rules based on risk level */
+.low-risk .risk-badge { background: rgba(16, 185, 129, 0.2); color: var(--risk-low); border: 1px solid var(--risk-low); }
+.medium-risk .risk-badge { background: rgba(245, 158, 11, 0.2); color: var(--risk-medium); border: 1px solid var(--risk-medium); }
+.high-risk .risk-badge { background: rgba(239, 68, 68, 0.2); color: var(--risk-high); border: 1px solid var(--risk-high); }
+.extreme-risk .risk-badge { background: rgba(220, 38, 38, 0.3); color: #f87171; border: 1px solid #f87171; box-shadow: 0 0 15px rgba(220, 38, 38, 0.5); }
+
+/* SVG Gauge (Optional extra visualization hook) */
+.probability-meter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.meter-visual {
+  position: relative;
+  width: 200px;
+}
+
+.gauge {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.gauge path {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.gauge-bg {
+  stroke: rgba(255, 255, 255, 0.1);
+}
+
+.gauge-fill {
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100; /* Start empty, animate to value */
+}
+
+/* Coloring the gauge path dynamically based on classes applied in React */
+.low-risk .gauge-fill { stroke: var(--risk-low); }
+.medium-risk .gauge-fill { stroke: var(--risk-medium); }
+.high-risk .gauge-fill, .extreme-risk .gauge-fill { stroke: var(--risk-high); }
+
+.gauge-value {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  animation: fadeInUp 1s 0.5s both;
+}
+
+.meter-label {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: -10px;
+}
+
+/* AI Explanation Box */
+.ai-explanation h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.explanation-text {
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: #e2e8f0;
+  background: rgba(0,0,0,0.2);
+  padding: 1rem;
+  border-radius: 12px;
+  border-left: 4px solid var(--accent-purple);
+}
+
+/* SHAP Feature Importance */
+.feature-importance .subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  margin-top: -0.5rem;
+}
+
+.shap-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.shap-bar-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+.shap-label {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shap-bar-container {
+  display: flex;
+  align-items: center;
+  background: rgba(0,0,0,0.2);
+  height: 24px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Central axis marker */
+.shap-bar-container::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255,255,255,0.2);
+  z-index: 10;
+}
+
+.shap-bar {
+  height: 100%;
+  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+  position: absolute;
+}
+/* Negative impact pushes probability down (Good - Left leaning logic based on base SHAP)
+   For visual simplicity in this UI, we just show magnitude. Let's make positive = right, negative = left if we wanted,
+   but a simpler bar starting from left indicating "Impact Magnitude" with color + / - is easier to read quickly.
+*/
+
+.shap-bar.positive {
+  background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.6)); /* Red increases risk */
+  left: 0; /* Just anchoring left for visually pleasing impact bars */
+}
+
+.shap-bar.negative {
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.6)); /* Green decreases risk */
+  left: 0;
+}
+
+.shap-value {
+  position: absolute;
+  right: 10px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  z-index: 11;
+  color: white;
+}
+
+
+/* Footer */
+.app-footer {
+  text-align: center;
+  padding: 2rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.98); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
